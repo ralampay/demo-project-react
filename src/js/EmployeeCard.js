@@ -23,6 +23,32 @@ export default function EmployeeCard(props) {
                         )
                     }
                 })()}
+                <hr/>
+                {(() => {
+                    if(props.isRegular) {
+                        return (
+                            <button
+                                className="btn btn-danger"
+                                onClick={() => {
+                                    props.handleEmployeeToggle(props.employee)
+                                }}
+                            >
+                                Put on Porbation
+                            </button>
+                        )
+                    } else {
+                        return (
+                            <button 
+                                className="btn btn-success"
+                                onClick={() => {
+                                    props.handleEmployeeToggle(props.employee)
+                                }}
+                            >
+                                Make Regular
+                            </button>
+                        )
+                    }
+                })()}
             </div>
         </div>
     )
