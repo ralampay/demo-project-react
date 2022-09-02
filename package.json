@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "js": "./node_modules/.bin/esbuild --bundle src/js/index.js --outfile=build/bundle.js --loader:.js=jsx --watch",
-    "server": "./node_modules/.bin/esbuild --bundle src/js/index.js --outfile=build/bundle.js --loader:.js=jsx --servedir=build"
+    "server": "./node_modules/.bin/esbuild --bundle src/js/index.js --outfile=build/bundle.js --loader:.js=jsx --servedir=build",
+    "css": "./node_modules/.bin/sass src/css/application.scss build/main.css --no-source-map --load-path=node_modules --watch"
   },
   "author": "",
   "license": "ISC",

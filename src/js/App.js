@@ -9,33 +9,38 @@ export default function App(props) {
 
     return (
         <>
-            <h1>
-                {title}
-            </h1>
+            <div className="container">
+                <h1>
+                    {title}
+                </h1>
 
-            <button
-                onClick={() => {
-                    setIsMessageFormOpen(!isMessageFormOpen);
-                }}
-            >
-                Toggle Message Form
-            </button>
+                <button
+                    className="btn btn-primary"
+                    onClick={() => {
+                        setIsMessageFormOpen(!isMessageFormOpen);
+                    }}
+                >
+                    Toggle Message Form
+                </button>
 
-            {(() => {
-                if(isMessageFormOpen) {
-                    return (
-                        <MessageForm
-                        />
-                    )
-                }
-            })()}
+                {(() => {
+                    if(isMessageFormOpen) {
+                        return (
+                            <MessageForm
+                            />
+                        )
+                    }
+                })()}
 
-            <hr/>
-            <input
-                onChange={(event) => {
-                    setTitle(event.target.value);
-                }}
-            />
+                <hr/>
+                <input
+                    className="form-control"
+                    onChange={(event) => {
+                        setTitle(event.target.value);
+                    }}
+                />
+
+            </div>
         </>
     );
 }
