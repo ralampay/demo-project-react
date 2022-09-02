@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function EmployeeForm(props) {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [isRegular, setIsRegular] = useState(false);
-    const [id, setId] = useState(null);
+    const [id, setId] = useState(props.employee.id);
+    const [firstName, setFirstName] = useState(props.employee.firstName);
+    const [lastName, setLastName] = useState(props.employee.lastName);
+    const [isRegular, setIsRegular] = useState(props.employee.isRegular);
 
     const resetForm = () => {
         setId(null);

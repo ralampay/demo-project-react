@@ -24,6 +24,23 @@ export default function EmployeeCard(props) {
                     }
                 })()}
                 <hr/>
+                <button 
+                    className="btn btn-secondary"
+                    onClick={() => {
+                        const currentEmployee = {
+                            id: props.id,
+                            firstName: props.firstName,
+                            lastName: props.lastName,
+                            isRegular: props.isRegular
+                        };
+
+                        console.log(currentEmployee);
+
+                        props.setCurrentEmployee(currentEmployee);
+                    }}
+                >
+                    Edit
+                </button>
                 {(() => {
                     if(props.isRegular) {
                         return (

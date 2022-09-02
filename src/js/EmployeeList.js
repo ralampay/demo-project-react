@@ -3,6 +3,13 @@ import EmployeeCard from "./EmployeeCard";
 import EmployeeForm from "./EmployeeForm";
 
 export default function EmployeeList(props) {
+    const [currentEmployee, setCurrentEmployee] = useState({
+        id: null,
+        firstName: "",
+        lastName: "",
+        isRegular: false
+    });
+
     const [employees, setEmployees] = useState([
         {
             id: 1,
@@ -56,6 +63,7 @@ export default function EmployeeList(props) {
     return (
         <>
             <EmployeeForm
+                employee={currentEmployee}
                 saveEmployee={saveEmployee}
             />
             {employees.map((emp) => {
@@ -68,6 +76,7 @@ export default function EmployeeList(props) {
                         isRegular={emp.isRegular}
                         employee={emp}
                         handleEmployeeToggle={handleEmployeeToggle}
+                        setCurrentEmployee={setCurrentEmployee}
                     />
                 )
             })}
