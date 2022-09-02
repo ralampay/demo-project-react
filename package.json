@@ -1,0 +1,23 @@
+{
+  "name": "demo-project-react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "js": "./node_modules/.bin/esbuild --bundle src/js/index.js --outfile=build/bundle.js --loader:.js=jsx --watch",
+    "server": "./node_modules/.bin/esbuild --bundle src/js/index.js --outfile=build/bundle.js --loader:.js=jsx --servedir=build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "bootstrap": "^5.2.0",
+    "esbuild": "^0.15.6",
+    "json-server": "^0.17.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.3.0",
+    "sass": "^1.54.8"
+  }
+}
