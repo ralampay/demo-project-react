@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import EmployeeList from "./EmployeeList";
 
 import MessageForm from "./MessageForm";
 
@@ -39,7 +40,9 @@ export default function App(props) {
                         setTitle(event.target.value);
                     }}
                 />
-
+                <hr/>
+                <EmployeeList
+                />
             </div>
         </>
     );
