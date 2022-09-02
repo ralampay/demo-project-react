@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import EmployeeCard from "./EmployeeCard";
+import EmployeeForm from "./EmployeeForm";
 
 export default function EmployeeList(props) {
     const [employees, setEmployees] = useState([
@@ -32,6 +33,8 @@ export default function EmployeeList(props) {
 
     return (
         <>
+            <EmployeeForm
+            />
             {employees.map((emp) => {
                 return (
                     <EmployeeCard
