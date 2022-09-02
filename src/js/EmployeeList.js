@@ -31,9 +31,32 @@ export default function EmployeeList(props) {
         setEmployees(temp);
     }
 
+    const saveEmployee = (emp) => {
+        console.log(emp);
+
+        // Adding a new employee
+        if(!emp.id) {
+            let maxId = -1;
+
+            employees.forEach((e) => {
+                if(e.id > maxId) {
+                    maxId = e.id;
+                }
+            })
+
+            emp.id = maxId + 1;
+
+            let temp = [...employees];
+            temp.push(emp);
+
+            setEmployees(temp);
+        }
+    }
+
     return (
         <>
             <EmployeeForm
+                saveEmployee={saveEmployee}
             />
             {employees.map((emp) => {
                 return (

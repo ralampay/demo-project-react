@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import EmployeeList from "./EmployeeList";
 
-import MessageForm from "./MessageForm";
-
 export default function App(props) {
     const originalTitle = "My Awesome Application";
     const [title, setTitle] = useState(originalTitle);
@@ -15,31 +13,6 @@ export default function App(props) {
                     {title}
                 </h1>
 
-                <button
-                    className="btn btn-primary"
-                    onClick={() => {
-                        setIsMessageFormOpen(!isMessageFormOpen);
-                    }}
-                >
-                    Toggle Message Form
-                </button>
-
-                {(() => {
-                    if(isMessageFormOpen) {
-                        return (
-                            <MessageForm
-                            />
-                        )
-                    }
-                })()}
-
-                <hr/>
-                <input
-                    className="form-control"
-                    onChange={(event) => {
-                        setTitle(event.target.value);
-                    }}
-                />
                 <hr/>
                 <EmployeeList
                 />
