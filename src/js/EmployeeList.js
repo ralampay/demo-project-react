@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import EmployeeCard from "./EmployeeCard";
 import EmployeeForm from "./EmployeeForm";
+import axios from "axios";
 
 export default function EmployeeList(props) {
     const [currentEmployee, setCurrentEmployee] = useState({
@@ -11,6 +12,17 @@ export default function EmployeeList(props) {
     });
 
     const [employees, setEmployees] = useState([]);
+
+    useEffect(() => {
+        axios.get(
+            'http://localhost:5000/employees'
+        ).then((res) => {
+            console.log(res);
+            setEmployees(res.data);
+        }).catch((error) => {
+            console.log(error);
+        })
+    }, []);
 
     const resetEmployee = () => {
         setCurrentEmployee({
