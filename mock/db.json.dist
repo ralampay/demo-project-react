@@ -12,5 +12,22 @@
             "lastName": "Alampay",
             "isRegular": false
         }
-    ]
+  ],
+  "tasks": [
+    {
+      "id": 1,
+      "content": "Task 1",
+      "employeeId": 1
+    },
+    {
+      "id": 2,
+      "content": "Task 2",
+      "employeeId": 1
+    },
+    {
+      "id": 3,
+      "content": "Task 3",
+      "employeeId": 2
+    }
+  ]
 }
