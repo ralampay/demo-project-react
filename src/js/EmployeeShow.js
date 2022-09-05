@@ -33,6 +33,12 @@ export default function EmployeeShow(props) {
                 {lastName}, {firstName}
             </h1>
             <hr/>
+            <Link
+                className="btn btn-secondary"
+                to="/"
+            >
+                Back to List
+            </Link>
         </>
     )
 }

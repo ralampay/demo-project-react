@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 
 import EmployeeList from "./EmployeeList";
+import EmployeeShow from "./EmployeeShow";
 import About from "./pages/About";
 
 export default function App(props) {

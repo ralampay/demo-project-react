@@ -1,6 +1,11 @@
 import React, { useState } from "react";
+import { 
+    Link,
+    useNavigate
+} from "react-router-dom";
 
 export default function EmployeeCard(props) {
+    const navigate = useNavigate();
 
     return (
         <div className="card my-4">
@@ -24,6 +29,20 @@ export default function EmployeeCard(props) {
                     }
                 })()}
                 <hr/>
+                <Link
+                    to={`/employees/${props.id}`}
+                    className="btn btn-primary"
+                >
+                    Show
+                </Link>
+                <button
+                    className="btn btn-primary"
+                    onClick={() => {
+                        navigate(`/employees/${props.id}`);
+                    }}
+                >
+                    Show Alternative
+                </button>
                 <button 
                     className="btn btn-secondary"
                     onClick={() => {
