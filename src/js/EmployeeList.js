@@ -56,33 +56,44 @@ export default function EmployeeList(props) {
 
         // Adding a new employee
         if(!currentEmployee.id) {
-            let maxId = 0;
+            axios.post(
+                'http://localhost:5000/employees',
+                currentEmployee
+            ).then((res) => {
+                console.log(res);
+                let temp = [...employees];
+                temp.push(res.data);
 
-            employees.forEach((e) => {
-                if(e.id > maxId) {
-                    maxId = e.id;
-                }
+                setEmployees(temp);
+                setIsSubmitting(false);
+                resetEmployee();
+            }).catch((error) => {
+                console.log(error);
             })
-
-            currentEmployee.id = maxId + 1;
-
-            let temp = [...employees];
-            temp.push(currentEmployee);
-
-            setEmployees(temp);
         } else {
-            for(var i = 0; i < employees.length; i++) {
-                if(employees[i].id == currentEmployee.id) {
-                    employees[i] = currentEmployee;
-                    break;
+            axios.put(
+                `http://localhost:5000/employees/${currentEmployee.id}`,
+                currentEmployee
+            ).then((res) => {
+                console.log(res);
+                // res.data --> updated employee
+                let emp = res.data;
+
+                // updates the list of the updated employee from server
+                for(var i = 0; i < employees.length; i++) {
+                    if(employees[i].id == emp.id) {
+                        employees[i] = emp;
+                        break;
+                    }
                 }
-            }
 
-            setEmployees(employees);
+                setEmployees(employees);
+                setIsSubmitting(false);
+                resetEmployee();
+            }).catch((error) => {
+                console.log(error);
+            })
         }
-
-        resetEmployee();
-        setIsSubmitting(false);
     }
 
     if(isLoading) {
