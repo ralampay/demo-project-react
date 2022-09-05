@@ -10,20 +10,7 @@ export default function EmployeeList(props) {
         isRegular: false
     });
 
-    const [employees, setEmployees] = useState([
-        {
-            id: 1,
-            firstName: "Raphael",
-            lastName: "Alampay",
-            isRegular: true
-        },
-        {
-            id: 2,
-            firstName: "Leonardo",
-            lastName: "Alampay",
-            isRegular: false
-        }
-    ]);
+    const [employees, setEmployees] = useState([]);
 
     const handleEmployeeToggle = (emp) => {
         let temp = [...employees];
