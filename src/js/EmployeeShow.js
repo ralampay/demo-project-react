@@ -11,6 +11,7 @@ export default function EmployeeShow(props) {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [isRegular, setIsRegular] = useState(false);
+    const [tasks, setTasks] = useState([]);
 
     const { id } = useParams();
 
@@ -25,6 +26,15 @@ export default function EmployeeShow(props) {
         }).catch((error) => {
             console.log(error);
         })
+
+        axios.get(
+            `${config.routes.employees}/${id}/tasks`
+        ).then((res) => {
+            let temp = res.data;
+            setTasks(temp);
+        }).catch((error) => {
+            console.log(error);
+        })
     }, [])
 
     return (
@@ -32,6 +42,47 @@ export default function EmployeeShow(props) {
             <h1>
                 {lastName}, {firstName}
             </h1>
+            <hr/>
+            {(() => {
+                if(tasks.length > 0) {
+                    return (
+                        <>
+                            <table className="table table-sm table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th className="text-center">
+                                            Id
+                                        </th>
+                                        <th>
+                                            Content
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {tasks.map((task) => {
+                                        return (
+                                            <tr key={`task-${task.id}`}>
+                                                <td className="text-center">
+                                                    {task.id}
+                                                </td>
+                                                <td>
+                                                    {task.content}
+                                                </td>
+                                            </tr>
+                                        )
+                                    })}
+                                </tbody>
+                            </table>
+                        </>
+                    )
+                } else {
+                    return (
+                        <>
+                            <p>No tasks found.</p>
+                        </>
+                    )
+                }
+            })()}
             <hr/>
             <Link
                 className="btn btn-secondary"
