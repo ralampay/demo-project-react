@@ -12,6 +12,15 @@ export default function EmployeeList(props) {
 
     const [employees, setEmployees] = useState([]);
 
+    const resetEmployee = () => {
+        setCurrentEmployee({
+            id: null,
+            firstName: "",
+            lastName: "",
+            isRegular: false
+        })
+    }
+
     const handleEmployeeToggle = (emp) => {
         let temp = [...employees];
 
@@ -25,12 +34,12 @@ export default function EmployeeList(props) {
         setEmployees(temp);
     }
 
-    const saveEmployee = (emp) => {
-        console.log(emp);
+    const saveEmployee = () => {
+        console.log(currentEmployee);
 
         // Adding a new employee
-        if(!emp.id) {
-            let maxId = -1;
+        if(!currentEmployee.id) {
+            let maxId = 0;
 
             employees.forEach((e) => {
                 if(e.id > maxId) {
@@ -38,19 +47,31 @@ export default function EmployeeList(props) {
                 }
             })
 
-            emp.id = maxId + 1;
+            currentEmployee.id = maxId + 1;
 
             let temp = [...employees];
-            temp.push(emp);
+            temp.push(currentEmployee);
 
             setEmployees(temp);
+        } else {
+            for(var i = 0; i < employees.length; i++) {
+                if(employees[i].id == currentEmployee.id) {
+                    employees[i] = currentEmployee;
+                    break;
+                }
+            }
+
+            setEmployees(employees);
         }
+
+        resetEmployee();
     }
 
     return (
         <>
             <EmployeeForm
                 employee={currentEmployee}
+                setCurrentEmployee={setCurrentEmployee}
                 saveEmployee={saveEmployee}
             />
             {employees.map((emp) => {

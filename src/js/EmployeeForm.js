@@ -1,18 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 export default function EmployeeForm(props) {
-    const [id, setId] = useState(props.employee.id);
-    const [firstName, setFirstName] = useState(props.employee.firstName);
-    const [lastName, setLastName] = useState(props.employee.lastName);
-    const [isRegular, setIsRegular] = useState(props.employee.isRegular);
-
-    const resetForm = () => {
-        setId(null);
-        setFirstName("");
-        setLastName("");
-        setIsRegular(false);
-    }
-
     return (
         <>
             <div className="form-group my-4">
@@ -20,10 +8,12 @@ export default function EmployeeForm(props) {
                     First Name
                 </label>
                 <input
-                    value={firstName}
+                    value={props.employee.firstName}
                     className="form-control"
                     onChange={(event) => {
-                        setFirstName(event.target.value);
+                        let emp = {...props.employee};
+                        emp.firstName = event.target.value;
+                        props.setCurrentEmployee(emp);
                     }}
                 />
             </div>
@@ -32,10 +22,12 @@ export default function EmployeeForm(props) {
                     Last Name
                 </label>
                 <input
-                    value={lastName}
+                    value={props.employee.lastName}
                     className="form-control"
                     onChange={(event) => {
-                        setLastName(event.target.value);
+                        let emp = {...props.employee};
+                        emp.lastName = event.target.value;
+                        props.setCurrentEmployee(emp);
                     }}
                 />
             </div>
@@ -44,10 +36,12 @@ export default function EmployeeForm(props) {
                     Is Regular
                 </label>
                 <input
-                    checked={isRegular}
+                    checked={props.employee.isRegular}
                     type="checkbox"
                     onChange={(event) => {
-                        setIsRegular(!isRegular);
+                        let emp = {...props.employee};
+                        emp.isRegular = !emp.isRegular;
+                        props.setCurrentEmployee(emp);
                     }}
                 />
             </div>
@@ -55,15 +49,7 @@ export default function EmployeeForm(props) {
             <button
                 className="btn btn-primary"
                 onClick={() => {
-                    let emp = {
-                        id: id,
-                        firstName: firstName,
-                        lastName: lastName,
-                        isRegular: isRegular
-                    };
-
-                    props.saveEmployee(emp);
-                    resetForm();
+                    props.saveEmployee(props.employee);
                 }}
             >
                 Save Employee
