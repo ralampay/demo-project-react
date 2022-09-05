@@ -13,12 +13,16 @@ export default function EmployeeList(props) {
 
     const [employees, setEmployees] = useState([]);
 
+    const [isLoading, setIsLoading] = useState(true);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     useEffect(() => {
         axios.get(
             'http://localhost:5000/employees'
         ).then((res) => {
             console.log(res);
             setEmployees(res.data);
+            setIsLoading(false);
         }).catch((error) => {
             console.log(error);
         })
@@ -48,6 +52,7 @@ export default function EmployeeList(props) {
 
     const saveEmployee = () => {
         console.log(currentEmployee);
+        setIsSubmitting(true);
 
         // Adding a new employee
         if(!currentEmployee.id) {
@@ -77,29 +82,39 @@ export default function EmployeeList(props) {
         }
 
         resetEmployee();
+        setIsSubmitting(false);
     }
 
-    return (
-        <>
-            <EmployeeForm
-                employee={currentEmployee}
-                setCurrentEmployee={setCurrentEmployee}
-                saveEmployee={saveEmployee}
-            />
-            {employees.map((emp) => {
-                return (
-                    <EmployeeCard
-                        key={`employee-${emp.id}`}
-                        id={emp.id}
-                        firstName={emp.firstName}
-                        lastName={emp.lastName}
-                        isRegular={emp.isRegular}
-                        employee={emp}
-                        handleEmployeeToggle={handleEmployeeToggle}
-                        setCurrentEmployee={setCurrentEmployee}
-                    />
-                )
-            })}
-        </>
-    )
+    if(isLoading) {
+        return (
+            <>
+                Loading...
+            </>
+        )
+    } else {
+        return (
+            <>
+                <EmployeeForm
+                    employee={currentEmployee}
+                    setCurrentEmployee={setCurrentEmployee}
+                    saveEmployee={saveEmployee}
+                    isSubmitting={isSubmitting}
+                />
+                {employees.map((emp) => {
+                    return (
+                        <EmployeeCard
+                            key={`employee-${emp.id}`}
+                            id={emp.id}
+                            firstName={emp.firstName}
+                            lastName={emp.lastName}
+                            isRegular={emp.isRegular}
+                            employee={emp}
+                            handleEmployeeToggle={handleEmployeeToggle}
+                            setCurrentEmployee={setCurrentEmployee}
+                        />
+                    )
+                })}
+            </>
+        )
+    }
 }

@@ -10,6 +10,7 @@ export default function EmployeeForm(props) {
                 <input
                     value={props.employee.firstName}
                     className="form-control"
+                    disabled={props.isSubmitting}
                     onChange={(event) => {
                         let emp = {...props.employee};
                         emp.firstName = event.target.value;
@@ -24,6 +25,7 @@ export default function EmployeeForm(props) {
                 <input
                     value={props.employee.lastName}
                     className="form-control"
+                    disabled={props.isSubmitting}
                     onChange={(event) => {
                         let emp = {...props.employee};
                         emp.lastName = event.target.value;
@@ -38,6 +40,7 @@ export default function EmployeeForm(props) {
                 <input
                     checked={props.employee.isRegular}
                     type="checkbox"
+                    disabled={props.isSubmitting}
                     onChange={(event) => {
                         let emp = {...props.employee};
                         emp.isRegular = !emp.isRegular;
@@ -48,6 +51,7 @@ export default function EmployeeForm(props) {
             <hr/>
             <button
                 className="btn btn-primary"
+                disabled={props.isSubmitting}
                 onClick={() => {
                     props.saveEmployee(props.employee);
                 }}
