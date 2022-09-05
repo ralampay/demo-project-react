@@ -1,0 +1,9 @@
+const apiBaseUrl = "http://localhost:5000";
+
+const config = {
+    routes: {
+        employees: `${apiBaseUrl}/employees`
+    }
+}
+
+module.exports = config;

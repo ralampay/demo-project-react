@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import EmployeeCard from "./EmployeeCard";
 import EmployeeForm from "./EmployeeForm";
 import axios from "axios";
+import config from "../config";
 
 export default function EmployeeList(props) {
     const [currentEmployee, setCurrentEmployee] = useState({
@@ -18,7 +19,7 @@ export default function EmployeeList(props) {
 
     useEffect(() => {
         axios.get(
-            'http://localhost:5000/employees'
+            config.routes.employees
         ).then((res) => {
             console.log(res);
             setEmployees(res.data);
@@ -57,7 +58,7 @@ export default function EmployeeList(props) {
         // Adding a new employee
         if(!currentEmployee.id) {
             axios.post(
-                'http://localhost:5000/employees',
+                config.routes.employees,
                 currentEmployee
             ).then((res) => {
                 console.log(res);
@@ -72,7 +73,7 @@ export default function EmployeeList(props) {
             })
         } else {
             axios.put(
-                `http://localhost:5000/employees/${currentEmployee.id}`,
+                `${config.routes.employees}/${currentEmployee.id}`,
                 currentEmployee
             ).then((res) => {
                 console.log(res);
