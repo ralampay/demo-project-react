@@ -53,6 +53,14 @@ export default function App(props) {
                                 <About/>
                             }
                         />
+                        <Route
+                            exact
+                            path='/employees/:id'
+                            element={
+                                <EmployeeShow
+                                />
+                            }
+                        />
                     </Routes>
 
                     <hr/>
