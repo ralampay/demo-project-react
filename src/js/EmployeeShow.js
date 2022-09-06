@@ -4,6 +4,7 @@ import {
     Link
 } from "react-router-dom";
 import axios from "axios";
+import Modal from 'react-bootstrap/Modal';
 
 import config from "../config";
 
@@ -12,6 +13,8 @@ export default function EmployeeShow(props) {
     const [lastName, setLastName] = useState("");
     const [isRegular, setIsRegular] = useState(false);
     const [tasks, setTasks] = useState([]);
+
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
     const { id } = useParams();
 
@@ -39,6 +42,26 @@ export default function EmployeeShow(props) {
 
     return (
         <>
+            <Modal
+                show={isConfirmOpen}
+            >
+                <Modal.Header>
+                    <Modal.Title>Confirmation</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <p>Are you sure?</p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <button
+                        className="btn btn-secondary"
+                        onClick={() => {
+                            setIsConfirmOpen(false);
+                        }}
+                    >
+                        Close
+                    </button>
+                </Modal.Footer>
+            </Modal>
             <h1>
                 {lastName}, {firstName}
             </h1>
@@ -95,6 +118,9 @@ export default function EmployeeShow(props) {
                     return (
                         <button
                             className="ms-2 btn btn-danger"
+                            onClick={() => {
+                                setIsConfirmOpen(true);
+                            }}
                         >
                             Put on Probation
                         </button>
@@ -103,6 +129,9 @@ export default function EmployeeShow(props) {
                     return (
                         <button
                             className="ms-2 btn btn-success"
+                            onClick={() => {
+                                setIsConfirmOpen(true);
+                            }}
                         >
                             Make Regular
                         </button>
