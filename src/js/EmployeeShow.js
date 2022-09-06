@@ -15,7 +15,20 @@ export default function EmployeeShow(props) {
     const [tasks, setTasks] = useState([]);
 
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+
+    const [currentTask, setCurrentTask] = useState({
+        id: null,
+        content: ""
+    })
+
+    const resetCurrentTask = () => {
+        setCurrentTask({
+            id: null,
+            content: ""
+        })
+    }
 
     const { id } = useParams();
 
@@ -43,6 +56,45 @@ export default function EmployeeShow(props) {
 
     return (
         <>
+            <Modal
+                show={isTaskModalOpen}
+            >
+                <Modal.Header>
+                    <Modal.Title>Task Form</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <input
+                        value={currentTask.content}
+                        className="form-control"
+                        disabled={isLoading}
+                        onChange={(event) => {
+                            let temp = {...currentTask};
+                            temp.content = event.target.value;
+                            setCurrentTask(temp);
+                        }}
+                    />
+                </Modal.Body>
+                <Modal.Footer>
+                    <button
+                        className="btn btn-primary"
+                        disabled={isLoading}
+                        onClick={() => {
+                            setIsLoading(true);
+                        }}
+                    >
+                        Confirm
+                    </button>
+                    <button
+                        className="btn btn-secondary"
+                        disabled={isLoading}
+                        onClick={() => {
+                            setIsTaskModalOpen(false);
+                        }}
+                    >
+                        Close
+                    </button>
+                </Modal.Footer>
+            </Modal>
             <Modal
                 show={isConfirmOpen}
             >
@@ -169,6 +221,14 @@ export default function EmployeeShow(props) {
                     )
                 }
             })()}
+            <button
+                className="ms-2 btn btn-primary"
+                onClick={() => {
+                    setIsTaskModalOpen(true);
+                }}
+            >
+                Add Task
+            </button>
         </>
     )
 }
