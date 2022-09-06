@@ -18,19 +18,21 @@ export default function EmployeeShow(props) {
     const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
+    const { id } = useParams();
+
     const [currentTask, setCurrentTask] = useState({
         id: null,
-        content: ""
+        content: "",
+        employeeId: parseInt(id)
     })
 
     const resetCurrentTask = () => {
         setCurrentTask({
             id: null,
-            content: ""
+            content: "",
+            employeeId: parseInt(id)
         })
     }
-
-    const { id } = useParams();
 
     useEffect(() => {
         axios.get(
@@ -80,9 +82,54 @@ export default function EmployeeShow(props) {
                         disabled={isLoading}
                         onClick={() => {
                             setIsLoading(true);
+
+                            if(currentTask.id) {
+                                // Update
+                                axios.put(
+                                    `${config.routes.tasks}/${currentTask.id}`,
+                                    currentTask
+                                ).then((res) => {
+                                    let updatedTask = res.data;
+                                    let temp = [...tasks];
+
+                                    for(var i = 0; i < temp.length; i++) {
+                                        if(temp[i].id == updatedTask.id) {
+                                            temp[i] = updatedTask;
+                                            break;
+                                        }
+                                    }
+
+                                    setTasks(temp);
+                                    setIsLoading(false);
+                                    setIsTaskModalOpen(false);
+                                    resetCurrentTask();
+                                }).catch((error) => {
+                                    console.log(error);
+                                    alert("Something went wrong!");
+                                    setIsLoading(false);
+                                })
+                            } else {
+                                // Create
+                                axios.post(
+                                    config.routes.tasks,
+                                    currentTask
+                                ).then((res) => {
+                                    let newTask = res.data;
+                                    let temp = [...tasks];
+                                    temp.push(newTask);
+                                    setTasks(temp);
+                                    setIsLoading(false);
+                                    setIsTaskModalOpen(false);
+                                    resetCurrentTask();
+                                }).catch((error) => {
+                                    console.log(error);
+                                    alert("Something went wrong!");
+                                    setIsLoading(false);
+                                })
+                            }
                         }}
                     >
-                        Confirm
+                        Save
                     </button>
                     <button
                         className="btn btn-secondary"
@@ -162,6 +209,9 @@ export default function EmployeeShow(props) {
                                         <th>
                                             Content
                                         </th>
+                                        <th className="text-center">
+                                            Actions
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -173,6 +223,17 @@ export default function EmployeeShow(props) {
                                                 </td>
                                                 <td>
                                                     {task.content}
+                                                </td>
+                                                <td className="text-center">
+                                                    <button
+                                                        className="btn btn-secondary"
+                                                        onClick={() => {
+                                                            setCurrentTask(task);
+                                                            setIsTaskModalOpen(true);
+                                                        }}
+                                                    >
+                                                        Edit
+                                                    </button>
                                                 </td>
                                             </tr>
                                         )
