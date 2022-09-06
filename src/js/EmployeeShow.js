@@ -15,6 +15,7 @@ export default function EmployeeShow(props) {
     const [tasks, setTasks] = useState([]);
 
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const { id } = useParams();
 
@@ -53,7 +54,17 @@ export default function EmployeeShow(props) {
                 </Modal.Body>
                 <Modal.Footer>
                     <button
+                        className="btn btn-primary"
+                        disabled={isLoading}
+                        onClick={() => {
+                            setIsLoading(true);
+                        }}
+                    >
+                        Confirm
+                    </button>
+                    <button
                         className="btn btn-secondary"
+                        disabled={isLoading}
                         onClick={() => {
                             setIsConfirmOpen(false);
                         }}
