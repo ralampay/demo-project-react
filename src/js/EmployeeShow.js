@@ -58,6 +58,26 @@ export default function EmployeeShow(props) {
                         disabled={isLoading}
                         onClick={() => {
                             setIsLoading(true);
+
+                            let emp = {
+                                id: id,
+                                firstName: firstName,
+                                lastName: lastName,
+                                isRegular: !isRegular
+                            }
+
+                            axios.put(
+                                `${config.routes.employees}/${id}`,
+                                emp
+                            ).then((res) => {
+                                setIsRegular(res.data.isRegular);
+                                setIsLoading(false);
+                                setIsConfirmOpen(false);
+                            }).catch((error) => {
+                                console.log(error);
+                                alert("Something went wrong!");
+                                setIsLoading(false);
+                            })
                         }}
                     >
                         Confirm
