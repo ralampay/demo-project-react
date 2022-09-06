@@ -90,6 +90,25 @@ export default function EmployeeShow(props) {
             >
                 Back to List
             </Link>
+            {(() => {
+                if(isRegular) {
+                    return (
+                        <button
+                            className="ms-2 btn btn-danger"
+                        >
+                            Put on Probation
+                        </button>
+                    )
+                } else {
+                    return (
+                        <button
+                            className="ms-2 btn btn-success"
+                        >
+                            Make Regular
+                        </button>
+                    )
+                }
+            })()}
         </>
     )
 }
